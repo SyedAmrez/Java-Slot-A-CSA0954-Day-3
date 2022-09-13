@@ -1,49 +1,82 @@
-import java.util.*;
-class ta{
-    public static void main(String[] args)
+import java.util.Scanner;
+
+public class rev
+{
+	//Method To Reverse A Number
+	
+	static int reverseNumber(int number)
 	{
-        double x,y;
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter the amount:");
-        double amount = input.nextDouble();
-	  if(amount<=0)
-	  {
-		System.out.println("Invalid");
-		return;
-        } 
-        if(amount<=150000)
-        {
-            System.out.println("No Tax");
-		return;    
-        }
-            x=amount-150000;
-            if(x<=150000)
+		int reverse = 0;
+		
+		int rem = 0;
+		
+		while (number != 0)
 		{
-			y=x*0.1;
-			System.out.println("Tax: "+y);
+			rem = number % 10;
+			
+			reverse = (reverse*10) + rem;
+			
+			number = number/10;
+		}
+		
+		return reverse;
+	}
+	
+	//Method To Check For Palindrome
+	
+	static boolean checkPalindrome(int number)
+	{
+		int reverse = reverseNumber(number);
+		
+		if(reverse == number)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	//Method To Reverse And Add Given Number Until You Get A Palindrome
+	
+	static void reverseAndAdd(int number)
+	{
+		if(checkPalindrome(number))
+		{
+			System.out.println("Given Number is already a palindrome");
+		}
+		else
+		{
+			while (!checkPalindrome(number))
+			{
+				int reverse = reverseNumber(number);
+				
+				int sum = number + reverse;
+				
+				System.out.println(number+" + "+reverse+" = "+sum);
+				
+				number = sum;
+			}
+		}
+	}
+	
+	public static void main(String[] args) 
+	{
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Enter Number : ");
+		if(!sc.hasNextInt())
+		{
+			System.out.println("Invalid");
 			return;
 		}
-		if(x>150000 && x<=300000)
+		int inputNumber = sc.nextInt();
+		if(inputNumber<=0)
 		{
-			y=x*0.1;
-			System.out.println("Tax: "+y);
+			System.out.println("Invalid");
 			return;
 		}
-		if(x>300000 && x<=500000)
-		{
-			y=x*0.2;
-			System.out.println("Tax: "+y);
-			return;
-		}
-		if(x>500000)
-		{
-			y=x*0.3;
-			System.out.println("Tax: "+y);
-			return;
-		}
-          	if(amount==0||amount<0||x<0)
-        	{
-          		System.out.println("Invalid");    
-        	}
-    }
+		reverseAndAdd(inputNumber);
+	}
 }
